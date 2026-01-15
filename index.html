@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KDA HOME DELIVERY LLC | Professional Logistics Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        dark: {
+                            900: '#0f172a',
+                            800: '#1e293b',
+                        }
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)',
+                        'glow': '0 0 20px rgba(14, 165, 233, 0.15)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .modal-backdrop {
+            background-color: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        .animate-fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        .animate-fade-in-up-delay-1 {
+            animation: fadeInUp 0.8s ease-out 0.2s forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        .animate-fade-in-up-delay-2 {
+            animation: fadeInUp 0.8s ease-out 0.4s forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .service-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .service-icon-wrapper {
+            transition: all 0.3s ease;
+        }
+        .service-card:hover .service-icon-wrapper {
+            background-color: #0284c7;
+            color: white;
+            transform: scale(1.1);
+        }
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #0ea5e9;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        .process-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 2rem;
+            right: -50%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #e2e8f0 0%, #0ea5e9 50%, #e2e8f0 100%);
+            z-index: 0;
+        }
+        @media (max-width: 1024px) {
+            .process-step:not(:last-child)::after {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <nav class="fixed w-full z-50 glass-panel border-b border-gray-100 shadow-sm transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center gap-3">
+                    <div class="w-10 h-10 bg-brand-600 rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-lg">
+                        K
+                    </div>
+                    <span class="font-bold text-xl tracking-tight text-dark-900">KDA HOME DELIVERY</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#about" class="nav-link text-sm font-medium text-gray-600 hover:text-brand-600 transition-colors">About Us</a>
+                    <a href="#services" class="nav-link text-sm font-medium text-gray-600 hover:text-brand-600 transition-colors">Services</a>
+                    <a href="#advantages" class="nav-link text-sm font-medium text-gray-600 hover:text-brand-600 transition-colors">Why Choose Us</a>
+                    <a href="#process" class="nav-link text-sm font-medium text-gray-600 hover:text-brand-600 transition-colors">Our Process</a>
+                    <button onclick="openModal()" class="px-6 py-2.5 bg-brand-600 text-white text-sm font-medium rounded-full hover:bg-brand-800 transition-all duration-300 shadow-glow hover:shadow-lg transform hover:-translate-y-0.5">
+                        Get a Quote
+                    </button>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button class="text-gray-600 hover:text-gray-900 focus:outline-none" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="hidden md:hidden bg-white border-t border-gray-100" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-brand-600 hover:bg-gray-50">About Us</a>
+                <a href="#services" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-brand-600 hover:bg-gray-50">Services</a>
+                <a href="#advantages" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-brand-600 hover:bg-gray-50">Why Choose Us</a>
+                <a href="#process" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-brand-600 hover:bg-gray-50">Our Process</a>
+                <button onclick="openModal()" class="w-full text-left block px-3 py-2 rounded-md text-base font-medium text-brand-600 font-bold bg-gray-50">Contact Us</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="main1.jpg" alt="Logistics Warehouse" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-r from-dark-900/95 to-dark-900/70"></div>
+        </div>
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20">
+            <span class="inline-block py-1 px-3 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-400 text-sm font-semibold mb-6 animate-fade-in-up">
+                PREMIER GENERAL FREIGHT TRUCKING
+            </span>
+            <h1 class="text-5xl md:text-7xl font-bold text-white mb-8 tracking-tight leading-tight animate-fade-in-up-delay-1">
+                Precision in Every Mile, <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-cyan-300">Reliability in Every Load</span>
+            </h1>
+            <p class="text-xl text-gray-300 mb-10 max-w-2xl mx-auto leading-relaxed animate-fade-in-up-delay-2">
+                Empowering your supply chain with dedicated local trucking solutions without storage. We ensure your freight moves efficiently across Florida with safety and speed as our top priorities.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4 animate-fade-in-up-delay-2">
+                <button onclick="openModal()" class="px-8 py-4 bg-brand-600 text-white rounded-full font-semibold text-lg hover:bg-brand-500 transition-all duration-300 shadow-lg hover:shadow-brand-500/50 flex items-center justify-center gap-2">
+                    Request Service
+                    <i class="fas fa-arrow-right text-sm"></i>
+                </button>
+                <a href="#about" class="px-8 py-4 bg-white/10 backdrop-blur-sm border border-white/20 text-white rounded-full font-semibold text-lg hover:bg-white/20 transition-all duration-300">
+                    Learn More
+                </a>
+            </div>
+        </div>
+        <div class="absolute bottom-10 left-0 right-0 flex justify-center animate-bounce">
+            <a href="#about" class="text-white/50 hover:text-white transition-colors">
+                <i class="fas fa-chevron-down text-2xl"></i>
+            </a>
+        </div>
+    </div>
+
+    <section id="about" class="py-24 bg-white relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-1/3 h-full bg-gray-50 skew-x-12 transform origin-top translate-x-32 z-0"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 text-gray-600 text-xs font-bold uppercase tracking-wider mb-6">
+                        <span class="w-2 h-2 rounded-full bg-brand-500"></span>
+                        Who We Are
+                    </div>
+                    <h2 class="text-4xl font-bold text-dark-900 mb-6 leading-tight">Driving Excellence in Local Transportation</h2>
+                    <div class="space-y-4 text-lg text-gray-600 leading-relaxed">
+                        <p>
+                            KDA HOME DELIVERY LLC stands at the forefront of the local trucking industry, redefining what it means to be a reliable logistics partner. Unlike standard carriers, we specialize exclusively in direct transportation without storage, ensuring that your goods are constantly in motion towards their destination.
+                        </p>
+                        <p>
+                            Our operations are rooted in Kissimmee, but our impact resonates throughout the region. We understand that in general freight trucking, timing is not just a metric—it is the foundation of trust.
+                        </p>
+                        <p>
+                            We have cultivated a fleet and a team that prioritizes safety, cargo integrity, and transparent communication. Whether it is a commercial haul or a specialized delivery, we approach every route with strategic planning and unwavering dedication.
+                        </p>
+                        <p>
+                            By eliminating unnecessary warehousing steps, we reduce handling risks and accelerate delivery times. Your business deserves a transport solution that is as dynamic and committed as you are.
+                        </p>
+                    </div>
+                    <div class="mt-10 pt-8 border-t border-gray-100 flex gap-12">
+                        <div>
+                            <span class="block text-3xl font-bold text-brand-600">100%</span>
+                            <span class="text-sm text-gray-500 font-medium">Local Coverage</span>
+                        </div>
+                        <div>
+                            <span class="block text-3xl font-bold text-brand-600">24/7</span>
+                            <span class="text-sm text-gray-500 font-medium">Operational Readiness</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="relative rounded-2xl overflow-hidden shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Truck on road" class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                        <div class="absolute bottom-8 left-8 text-white">
+                            <p class="font-bold text-xl">Modern Fleet</p>
+                            <p class="text-white/80 text-sm">Equipped for efficiency</p>
+                        </div>
+                    </div>
+                    <div class="absolute -bottom-6 -right-6 w-48 h-48 bg-gray-100 rounded-full z-[-1]"></div>
+                    <div class="absolute -top-6 -left-6 w-32 h-32 bg-brand-50 rounded-full z-[-1]"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="py-24 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-dark-900 mb-4">Core Logistics Competencies</h2>
+                <p class="text-gray-600 text-lg">We provide specialized transportation services tailored to meet the rigorous demands of modern commerce.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="service-card bg-white rounded-2xl p-8 shadow-soft border border-gray-100 relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-brand-50 rounded-bl-full -mr-16 -mt-16 transition-all duration-500 group-hover:bg-brand-100"></div>
+                    <div class="service-icon-wrapper w-14 h-14 bg-brand-50 text-brand-600 rounded-xl flex items-center justify-center text-2xl mb-6 relative z-10">
+                        <i class="fas fa-truck-moving"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-dark-900 mb-4 relative z-10">General Freight Trucking</h3>
+                    <p class="text-gray-600 leading-relaxed relative z-10">
+                        We offer comprehensive general freight solutions designed to handle a wide variety of cargo types with maximum security. Our team ensures that every load is properly secured and transported according to industry regulations. Reliability is our standard for every mile traveled.
+                    </p>
+                </div>
+
+                <div class="service-card bg-white rounded-2xl p-8 shadow-soft border border-gray-100 relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-brand-50 rounded-bl-full -mr-16 -mt-16 transition-all duration-500 group-hover:bg-brand-100"></div>
+                    <div class="service-icon-wrapper w-14 h-14 bg-brand-50 text-brand-600 rounded-xl flex items-center justify-center text-2xl mb-6 relative z-10">
+                        <i class="fas fa-city"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-dark-900 mb-4 relative z-10">Local Urban Logistics</h3>
+                    <p class="text-gray-600 leading-relaxed relative z-10">
+                        Navigating the complexities of local routes requires specialized knowledge and precision driving. We excel in point-to-point delivery within the metropolitan area, ensuring businesses stay stocked and connected. Our drivers are experts in efficient route planning to avoid delays.
+                    </p>
+                </div>
+
+                <div class="service-card bg-white rounded-2xl p-8 shadow-soft border border-gray-100 relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-brand-50 rounded-bl-full -mr-16 -mt-16 transition-all duration-500 group-hover:bg-brand-100"></div>
+                    <div class="service-icon-wrapper w-14 h-14 bg-brand-50 text-brand-600 rounded-xl flex items-center justify-center text-2xl mb-6 relative z-10">
+                        <i class="fas fa-dolly"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-dark-900 mb-4 relative z-10">Direct Transport (No Storage)</h3>
+                    <p class="text-gray-600 leading-relaxed relative z-10">
+                        Our model focuses on immediate movement, eliminating the costs and delays associated with intermediate warehousing. Once your cargo is in our care, it heads directly to its destination without unnecessary stops. This streamlined approach guarantees freshness and speed for time-sensitive goods.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="advantages" class="py-24 bg-dark-900 text-white relative overflow-hidden">
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                <div>
+                    <h2 class="text-4xl font-bold mb-6">Why Partner With KDA?</h2>
+                    <p class="text-gray-400 text-lg mb-8">
+                        In a crowded logistics market, we distinguish ourselves through unwavering accountability and a client-first philosophy.
+                    </p>
+                    <div class="space-y-8">
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-brand-600 flex items-center justify-center shadow-glow">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold mb-2">Uncompromised Safety Standards</h4>
+                                <p class="text-gray-400">
+                                    Every driver is rigorously vetted and trained. We maintain our fleet to the highest mechanical standards to prevent downtime and ensure cargo safety during transit.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-brand-600 flex items-center justify-center shadow-glow">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold mb-2">Punctuality as a Promise</h4>
+                                <p class="text-gray-400">
+                                    We understand that time is revenue. Our optimized routing software and local expertise allow us to predict traffic patterns and deliver on schedule, every time.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-brand-600 flex items-center justify-center shadow-glow">
+                                <i class="fas fa-user-check"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold mb-2">Personalized Client Support</h4>
+                                <p class="text-gray-400">
+                                    You are never just a tracking number with us. We provide dedicated support channels to keep you informed about your shipment's status from pickup to drop-off.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative h-full min-h-[400px] rounded-2xl overflow-hidden border border-gray-700">
+                    <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Team working" class="absolute inset-0 w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-brand-900/40"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="process" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-20">
+                <span class="text-brand-600 font-bold tracking-wider uppercase text-sm">Workflow</span>
+                <h2 class="text-4xl font-bold text-dark-900 mt-2">Operational Procedure</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+                <div class="process-step relative text-center px-4">
+                    <div class="w-20 h-20 mx-auto bg-white border-2 border-brand-100 rounded-full flex items-center justify-center text-3xl text-brand-600 shadow-lg mb-6 relative z-10">
+                        <i class="fas fa-file-signature"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-dark-900 mb-3">1. Evaluation & Booking</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        We analyze your specific freight requirements, determining the optimal vehicle and route. Once the scope is defined, we provide a transparent quote and confirm the schedule.
+                    </p>
+                </div>
+
+                <div class="process-step relative text-center px-4">
+                    <div class="w-20 h-20 mx-auto bg-white border-2 border-brand-100 rounded-full flex items-center justify-center text-3xl text-brand-600 shadow-lg mb-6 relative z-10">
+                        <i class="fas fa-box-open"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-dark-900 mb-3">2. Pickup & Transit</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        Our professional team arrives for cargo collection. The load is inspected, secured, and immediately dispatched. We utilize real-time monitoring to ensure the route remains efficient.
+                    </p>
+                </div>
+
+                <div class="process-step relative text-center px-4">
+                    <div class="w-20 h-20 mx-auto bg-white border-2 border-brand-100 rounded-full flex items-center justify-center text-3xl text-brand-600 shadow-lg mb-6 relative z-10">
+                        <i class="fas fa-clipboard-check"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-dark-900 mb-3">3. Delivery & Confirmation</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        Upon arrival, we ensure a safe unloading process. The recipient verifies the cargo integrity, and proof of delivery is instantly generated to close the operational loop.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-gray-50 border-t border-gray-200">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold text-dark-900 mb-6">Ready to Streamline Your Logistics?</h2>
+            <p class="text-gray-600 mb-8 text-lg">
+                Connect with KDA HOME DELIVERY LLC today for a custom transport solution designed for your business needs.
+            </p>
+            <div class="flex flex-col md:flex-row justify-center items-center gap-8">
+                <div class="flex items-center gap-3 text-left bg-white p-4 rounded-xl shadow-sm border border-gray-100 min-w-[280px]">
+                    <div class="w-10 h-10 rounded-full bg-brand-50 text-brand-600 flex items-center justify-center">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-gray-500 uppercase font-bold">Email Us</p>
+                        <p class="font-medium text-dark-900">kdamain@kdahomedelivery.info</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3 text-left bg-white p-4 rounded-xl shadow-sm border border-gray-100 min-w-[280px]">
+                    <div class="w-10 h-10 rounded-full bg-brand-50 text-brand-600 flex items-center justify-center">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-gray-500 uppercase font-bold">Headquarters</p>
+                        <p class="font-medium text-dark-900">3308 Reedy Glen Dr, Kissimmee</p>
+                    </div>
+                </div>
+            </div>
+            <button onclick="openModal()" class="mt-10 px-10 py-4 bg-dark-900 text-white rounded-full font-bold shadow-xl hover:bg-brand-600 transition-colors duration-300">
+                Contact Support Team
+            </button>
+        </div>
+    </section>
+
+    <footer class="bg-dark-900 text-gray-400 py-12 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center gap-2 text-white mb-4">
+                        <div class="w-8 h-8 bg-brand-600 rounded flex items-center justify-center font-bold">K</div>
+                        <span class="font-bold text-lg">KDA HOME DELIVERY LLC</span>
+                    </div>
+                    <p class="text-sm max-w-sm">
+                        Professional General Freight Trucking and Local Transportation services. Committed to excellence in every delivery without storage delays.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#about" class="hover:text-brand-500 transition-colors">About Company</a></li>
+                        <li><a href="#services" class="hover:text-brand-500 transition-colors">Our Services</a></li>
+                        <li><a href="#process" class="hover:text-brand-500 transition-colors">Workflow</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Legal</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-brand-500 transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-brand-500 transition-colors">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm">
+                <p>&copy; 2024 KDA HOME DELIVERY LLC. All rights reserved.</p>
+                <p>Kissimmee, FL 34758</p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="contactModal" class="fixed inset-0 z-[100] hidden">
+        <div class="absolute inset-0 modal-backdrop transition-opacity opacity-0" id="modalOverlay"></div>
+        <div class="absolute inset-0 flex items-center justify-center p-4">
+            <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg transform scale-95 opacity-0 transition-all duration-300" id="modalContent">
+                <div class="p-6 md:p-8">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-2xl font-bold text-dark-900">Send a Message</h3>
+                        <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
+                            <i class="fas fa-times text-xl"></i>
+                        </button>
+                    </div>
+                    <p class="text-gray-600 mb-6 text-sm">
+                        Please fill out the form below regarding your freight inquiry. We will respond via email as soon as possible.
+                    </p>
+                    <form onsubmit="handleSubmit(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                            <input type="text" required class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:border-brand-500 focus:bg-white focus:ring-2 focus:ring-brand-200 outline-none transition-all" placeholder="John Doe">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                            <input type="email" required class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:border-brand-500 focus:bg-white focus:ring-2 focus:ring-brand-200 outline-none transition-all" placeholder="john@company.com">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Subject</label>
+                            <select class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:border-brand-500 focus:bg-white focus:ring-2 focus:ring-brand-200 outline-none transition-all">
+                                <option>General Inquiry</option>
+                                <option>Request a Quote</option>
+                                <option>Track Shipment</option>
+                                <option>Partner With Us</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                            <textarea required rows="4" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:border-brand-500 focus:bg-white focus:ring-2 focus:ring-brand-200 outline-none transition-all" placeholder="Details about cargo, location, or questions..."></textarea>
+                        </div>
+                        <button type="submit" class="w-full py-4 bg-brand-600 text-white font-bold rounded-lg hover:bg-brand-700 transform hover:translate-y-[-1px] transition-all shadow-lg">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="successModal" class="fixed inset-0 z-[110] hidden">
+        <div class="absolute inset-0 modal-backdrop"></div>
+        <div class="absolute inset-0 flex items-center justify-center p-4">
+            <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-8 text-center animate-fade-in-up">
+                <div class="w-16 h-16 bg-green-100 text-green-500 rounded-full flex items-center justify-center mx-auto mb-6 text-2xl">
+                    <i class="fas fa-check"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-dark-900 mb-2">Message Sent!</h3>
+                <p class="text-gray-600 mb-6">
+                    Thank you for contacting KDA Home Delivery. We have received your inquiry and will respond to your email shortly.
+                </p>
+                <button onclick="closeSuccessModal()" class="w-full py-3 bg-dark-900 text-white font-bold rounded-lg hover:bg-gray-800 transition-colors">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const contactModal = document.getElementById('contactModal');
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modalContent = document.getElementById('modalContent');
+        const successModal = document.getElementById('successModal');
+        const navbar = document.getElementById('navbar');
+
+        function openModal() {
+            contactModal.classList.remove('hidden');
+            // Trigger reflow
+            void contactModal.offsetWidth;
+            
+            modalOverlay.classList.remove('opacity-0');
+            modalContent.classList.remove('scale-95', 'opacity-0');
+            modalContent.classList.add('scale-100', 'opacity-100');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modalOverlay.classList.add('opacity-0');
+            modalContent.classList.remove('scale-100', 'opacity-100');
+            modalContent.classList.add('scale-95', 'opacity-0');
+            
+            setTimeout(() => {
+                contactModal.classList.add('hidden');
+                document.body.style.overflow = '';
+            }, 300);
+        }
+
+        function handleSubmit(e) {
+            e.preventDefault();
+            closeModal();
+            setTimeout(() => {
+                successModal.classList.remove('hidden');
+            }, 300);
+        }
+
+        function closeSuccessModal() {
+            successModal.classList.add('hidden');
+        }
+
+        // Close modal on outside click
+        contactModal.addEventListener('click', (e) => {
+            if (e.target === contactModal || e.target.classList.contains('absolute')) {
+                // Check if we clicked the overlay wrapper, not the content
+                const rect = modalContent.getBoundingClientRect();
+                const clickedInDialog = (
+                    rect.top <= e.clientY &&
+                    e.clientY <= rect.top + rect.height &&
+                    rect.left <= e.clientX &&
+                    e.clientX <= rect.left + rect.width
+                );
+                
+                if (!clickedInDialog) {
+                    closeModal();
+                }
+            }
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                navbar.classList.add('bg-white/95', 'backdrop-blur-md', 'shadow-sm');
+                navbar.classList.remove('glass-panel');
+            } else {
+                navbar.classList.remove('bg-white/95', 'backdrop-blur-md', 'shadow-sm');
+                navbar.classList.add('glass-panel');
+            }
+        });
+    </script>
+</body>
+</html>
